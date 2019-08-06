@@ -70,7 +70,7 @@ See [Options](#options-options) below for custom configuration.
 * `sentry` (Object) - a Sentry configuration object (see [Sentry Common Options](#sentry-commoin-options))
 * `silent` (Boolean) - suppress logging (defaults to `false`)
 * `level` (String) - transport's level of messages to log (defaults to `info`)
-* `format` (Object) - custom log format (see [Winston Formats](winston-transport-formats))
+* `format` (Object) - custom log format (see [Winston Formats](https://github.com/winstonjs/winston#formats))
 
 ### Sentry common options
 
@@ -80,11 +80,11 @@ See [Options](#options-options) below for custom configuration.
 * `debug` (Boolean) - turns debug mode on or off
 * `sampleRate` (Number) - sample rate as a percentage of events to be sent in the range of 0.0 to 1.0
 * `maxBreadcrumbs` (Number) - total amount of breadcrumbs that should be captured
-* ... [Other options](sentry-options-url)
+* ... [Other options](https://docs.sentry.io/error-reporting/configuration/?platform=javascript)
 
-### Format `info` object ([See more](winston-format-info-object))
+### Format `info` object ([See more](https://github.com/winstonjs/winston#filtering-info-objects))
 
-* `tags` (Object) - tags transforms to extra data for sentry (see [Sentry Extra Context](sentry-extra-context))
+* `tags` (Object) - tags transforms to extra data for sentry (see [Sentry Extra Context](https://docs.sentry.io/enriching-error-data/context/?platform=javascript#extra-context))
 
 ### Log Level Mapping
 
@@ -106,10 +106,6 @@ Winston logging levels are mapped by default to Sentry's acceptable levels.
 [MIT License][license-url]
 
 [license-url]: LICENSE
-[sentry-options-url]: https://docs.sentry.io/error-reporting/configuration/?platform=javascript
-[sentry-extra-context]: https://docs.sentry.io/enriching-error-data/context/?platform=javascript#extra-context
-[winston-transport-formats]: https://github.com/winstonjs/winston#formats
-[winston-format-info-object]: https://github.com/winstonjs/winston#filtering-info-objects
 [node-url]: https://nodejs.org
 [raven-url]: https://github.com/getsentry/raven-node
 [winston-url]: https://github.com/winstonjs/winston
