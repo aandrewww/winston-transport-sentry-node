@@ -14,10 +14,15 @@
     "winston",
     "winston3"
   ],
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "/dist",
+    "/src"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "lint": "eslint **/*.ts"
+    "lint": "eslint **/*.ts",
+    "prepare": "npm run build"
   },
   "repository": "https://github.com/aandrewww/winston-transport-sentry-node.git",
   "license": "MIT",
