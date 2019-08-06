@@ -70,7 +70,7 @@ See [Options](#options-options) below for custom configuration.
 * `sentry` (Object) - a Sentry configuration object (see [Sentry Common Options](#sentry-commoin-options))
 * `silent` (Boolean) - suppress logging (defaults to `false`)
 * `level` (String) - transport's level of messages to log (defaults to `info`)
-* `format` (Object) - custom log format (see [Winston Formats](#winston-transport-formats))
+* `format` (Object) - custom log format (see [Winston Formats](winston-transport-formats))
 
 ### Sentry common options
 
@@ -80,11 +80,11 @@ See [Options](#options-options) below for custom configuration.
 * `debug` (Boolean) - turns debug mode on or off
 * `sampleRate` (Number) - sample rate as a percentage of events to be sent in the range of 0.0 to 1.0
 * `maxBreadcrumbs` (Number) - total amount of breadcrumbs that should be captured
-* ... [Other options](#sentry-options-url)
+* ... [Other options](sentry-options-url)
 
 ### Format `info` object ([See more](winston-format-info-object))
 
-* `tags` (Object) - tags transforms to extra data for sentry (see [Sentry Extra Context](#sentry-extra-context))
+* `tags` (Object) - tags transforms to extra data for sentry (see [Sentry Extra Context](sentry-extra-context))
 
 ### Log Level Mapping
 
