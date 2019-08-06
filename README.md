@@ -14,7 +14,7 @@
 * [Usage](#usage)
 * [Options](#options-options)
   - [Transport related options](#transport-related-options)
-  - [Sentry common options](#sentry-commoin-options)
+  - [Sentry common options](#sentry-common-options)
   - [Info object](#format-info-object)
   - [Log Level Mapping](#log-level-mapping)
 * [License](#license)
@@ -67,7 +67,7 @@ See [Options](#options-options) below for custom configuration.
 
 ### Transport related options
 
-* `sentry` (Object) - a Sentry configuration object (see [Sentry Common Options](#sentry-commoin-options))
+* `sentry` (Object) - a Sentry configuration object (see [Sentry Common Options](#sentry-common-options))
 * `silent` (Boolean) - suppress logging (defaults to `false`)
 * `level` (String) - transport's level of messages to log (defaults to `info`)
 * `format` (Object) - custom log format (see [Winston Formats](https://github.com/winstonjs/winston#formats))

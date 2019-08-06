@@ -1,3 +1,10 @@
-machine:
-  node:
-    version: 6.4.0
+version: 2
+jobs:
+  build:
+    docker:
+      — image: circleci/node:6.10
+    working_directory: ~/repo
+    steps:
+      — checkout
+      - run: npm install
+      — run: npm build
