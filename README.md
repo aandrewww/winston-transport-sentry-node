@@ -75,17 +75,16 @@ See [Options](#options-options) below for custom configuration.
 ### Sentry common options
 
 * `dsn` (String) - your Sentry DSN or Data Source Name (defaults to `process.env.SENTRY_DSN`)
-* `environment` (String)
+* `environment` (String) - (defaults to `process.env.SENTRY_ENVIRONMENT || process.env.NODE_ENV || 'production'`)
 * `serverName` (String) - transport's name (defaults to `winston-transport-sentry-node`)
-* `debug` (Boolean) - turns debug mode on or off
-* `sampleRate` (Number) - sample rate as a percentage of events to be sent in the range of 0.0 to 1.0
-* `maxBreadcrumbs` (Number) - total amount of breadcrumbs that should be captured
+* `debug` (Boolean) - turns debug mode on or off (default to `process.env.SENTRY_DEBUG || false`)
+* `sampleRate` (Number) - sample rate as a percentage of events to be sent in the range of 0.0 to 1.0 (default to `1.0`)
+* `maxBreadcrumbs` (Number) - total amount of breadcrumbs that should be captured (default to `100`)
 * ... [Other options](https://docs.sentry.io/error-reporting/configuration/?platform=javascript)
 
-### Format `info` object ([See more](https://github.com/winstonjs/winston#filtering-info-objects))
+### Info object ([See more](https://github.com/winstonjs/winston#filtering-info-objects))
 
 * `tags` (Object) - tags transforms to extra data for sentry (see [Sentry Extra Context](https://docs.sentry.io/enriching-error-data/context/?platform=javascript#extra-context))
-
 
 ```js
 // example
