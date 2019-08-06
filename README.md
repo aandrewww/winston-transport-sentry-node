@@ -86,6 +86,27 @@ See [Options](#options-options) below for custom configuration.
 
 * `tags` (Object) - tags transforms to extra data for sentry (see [Sentry Extra Context](https://docs.sentry.io/enriching-error-data/context/?platform=javascript#extra-context))
 
+
+```js
+// example
+
+const sentryFormat = format(info => {
+  const output = Object.assign({}, info);
+
+  output.tags = {
+    path: info.path ? info.path : '',
+    request_id: info.label
+  };
+
+  return output;
+});
+
+new SentryTransport({
+  format: sentryFormat(),
+  // ...
+})
+```
+
 ### Log Level Mapping
 
 Winston logging levels are mapped by default to Sentry's acceptable levels.
