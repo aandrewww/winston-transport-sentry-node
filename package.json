@@ -1,0 +1,44 @@
+{
+  "name": "winston-transport-sentry-node",
+  "description": "@sentry/node transport for the winston v3 logger",
+  "version": "0.0.1",
+  "author": "Andrew Avdeev <andrewww.avdeev@gmail.com>",
+  "keywords": [
+    "logger",
+    "loggly",
+    "logging",
+    "node",
+    "tools",
+    "sentry",
+    "transport",
+    "winston",
+    "winston3"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "eslint **/*.ts"
+  },
+  "repository": "https://github.com/aandrewww/winston-transport-sentry-node.git",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aandrewww/winston-transport-sentry-node/issues"
+  },
+  "homepage": "https://github.com/aandrewww/winston-transport-sentry-node#readme",
+  "engines": {
+    "node": ">= 6.4.0"
+  },
+  "dependencies": {
+    "@sentry/node": "^5.5.0",
+    "lodash": "^4.17.14",
+    "winston": "^3.2.1",
+    "winston-transport": "^4.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.6.9",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "eslint": "^5.16.0",
+    "typescript": "^3.5.3"
+  }
+}
