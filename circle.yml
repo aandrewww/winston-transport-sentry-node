@@ -9,6 +9,12 @@ jobs:
     steps:
       - checkout
 
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
       - run: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
 
       - run: npm build
