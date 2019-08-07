@@ -2,7 +2,6 @@
 # winston-transport-sentry-node
 [![CircleCI](https://circleci.com/gh/aandrewww/winston-transport-sentry-node.svg?style=svg)](https://circleci.com/gh/aandrewww/winston-transport-sentry-node)
 [![node](https://img.shields.io/badge/node-6.4.0+-brightgreen.svg)][node-url]
-[![raven](https://img.shields.io/badge/raven-2.x+-brightgreen.svg)][raven-url]
 [![winston](https://img.shields.io/badge/winston-3.x+-brightgreen.svg)][winston-url]
 [![license](https://img.shields.io/github/license/aandrewww/winston-transport-sentry-node.svg)][license-url]
 
@@ -127,5 +126,4 @@ Winston logging levels are mapped by default to Sentry's acceptable levels.
 
 [license-url]: LICENSE
 [node-url]: https://nodejs.org
-[raven-url]: https://github.com/getsentry/raven-node
 [winston-url]: https://github.com/winstonjs/winston
