@@ -1,17 +1,15 @@
 import * as Sentry from '@sentry/node';
-import TransportStream from 'winston-transport';
+import TransportStream = require("winston-transport");
+
+interface Info {
+  message: string;
+  level: string;
+  tags?: {[key: string]: string };
+  [key: string]: any;
+}
 
 export interface SentryTransportOptions extends TransportStream.TransportStreamOptions {
   sentry?: Sentry.NodeOptions;
-}
-
-class ExtendedError extends Error {
-  public constructor(info: any) {
-    super(info.message);
-
-    this.name = "Error";
-    this.stack = info.stack || null;
-  }
 }
 
 export default class SentryTransport extends TransportStream {
@@ -33,21 +31,23 @@ export default class SentryTransport extends TransportStream {
     Sentry.init(this.withDefaults(opts && opts.sentry || {}));
   }
 
-  public log(info: any, callback: () => void) {
+  public log(info: Info, callback: () => void) {
     setImmediate(() => {
       this.emit('logged', info);
     });
 
     if (this.silent) return callback();
 
-    const { message, tags, /* level, fingerprint */ } = info;
+    const { message, level: winstonLevel, tags, ...meta } = info;
 
-    const level = (this.levelsMap as any)[info.level];
+    const sentryLevel = (this.levelsMap as any)[winstonLevel];
 
     Sentry.configureScope(scope => {
-      if (this.isObject(tags)) {
-        Object.keys(tags).forEach(tag => scope.setExtra(tag, tags[tag]));
+      if (tags !== undefined && this.isObject(tags)) {
+        scope.setTags(tags);
       }
+
+      scope.setExtras(meta);
 
       // TODO: add user details
       // scope.setUser({ id: '4711' }); // id, email, username, ip_address
@@ -65,15 +65,14 @@ export default class SentryTransport extends TransportStream {
     // });
 
     // Capturing Errors / Exceptions
-    if (this.shouldLogException(level)) {
-      const error = message instanceof Error ? message : new ExtendedError(info);
-      Sentry.captureException(error);
+    if (this.shouldLogException(sentryLevel)) {
+      Sentry.captureException(new Error(message));
 
       return callback();
     }
 
     // Capturing Messages
-    Sentry.captureMessage(message, level);
+    Sentry.captureMessage(message, sentryLevel);
     return callback();
   }
 

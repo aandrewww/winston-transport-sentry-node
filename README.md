@@ -33,7 +33,7 @@ With `new winston.Logger`:
 
 ```js
 const winston = require('winston');
-const Sentry = require('winston-transport-sentry-node');
+const Sentry = require('winston-transport-sentry-node').default;
 
 const options = {
   sentry: {
@@ -53,7 +53,7 @@ Or with winston's `add` method:
 
 ```js
 const winston = require('winston');
-const Sentry = require('winston-transport-sentry-node');
+const Sentry = require('winston-transport-sentry-node').default;
 
 const logger = new winston.Logger();
 
@@ -81,28 +81,38 @@ See [Options](#options-options) below for custom configuration.
 * `maxBreadcrumbs` (Number) - total amount of breadcrumbs that should be captured (default to `100`)
 * ... [Other options](https://docs.sentry.io/error-reporting/configuration/?platform=javascript)
 
-### Info object ([See more](https://github.com/winstonjs/winston#filtering-info-objects))
+### Info object ([See more](https://github.com/winstonjs/winston#streams-objectmode-and-info-objects))
 
-* `tags` (Object) - tags transforms to extra data for sentry (see [Sentry Extra Context](https://docs.sentry.io/enriching-error-data/context/?platform=javascript#extra-context))
+If `info.tags` is an object, it will be sent as [Sentry Tags](https://docs.sentry.io/enriching-error-data/context/?platform=javascript#tagging-events).
 
 ```js
-// example
+logger.error("some error", { tags: { tag1: "yo", tag2: "123" } });
+```
 
+Additional properties of `info` are sent as [Sentry Extra Context](https://docs.sentry.io/enriching-error-data/context/?platform=javascript#extra-context). 
+
+```js
+logger.error("some error", { whatever: "is sent as extra" });
+```
+
+Tip! If you already have logging in place and want to use Sentry tags but don’t want to update all places where you log something, use a `format` function.
+
+```js
 const sentryFormat = format(info => {
-  const output = Object.assign({}, info);
-
-  output.tags = {
-    path: info.path ? info.path : '',
-    request_id: info.label
-  };
-
-  return output;
+  const {path, label, ...extra} = info;
+  return {
+    ...extra,
+    tags: {
+      path: path || '',
+      request_id: label
+    }
+  }
 });
 
 new SentryTransport({
-  format: sentryFormat(),
+  format: sentryFormat
   // ...
-})
+});
 ```
 
 ### Log Level Mapping
