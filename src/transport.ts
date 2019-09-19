@@ -40,14 +40,16 @@ export default class SentryTransport extends TransportStream {
 
     if (this.silent) return callback();
 
-    const { message, tags, /* level, fingerprint */ } = info;
+    const { message, tags, ...meta } = info;
 
     const level = (this.levelsMap as any)[info.level];
 
     Sentry.configureScope(scope => {
       if (this.isObject(tags)) {
-        Object.keys(tags).forEach(tag => scope.setExtra(tag, tags[tag]));
+        scope.setTags(tags);
       }
+
+      scope.setExtras(meta);
 
       // TODO: add user details
       // scope.setUser({ id: '4711' }); // id, email, username, ip_address
