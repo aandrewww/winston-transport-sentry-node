@@ -4,7 +4,7 @@ import TransportStream = require("winston-transport");
 interface Info {
   message: string;
   level: string;
-  tags?: {[key: string]: any};
+  tags?: {[key: string]: string };
   [key: string]: any;
 }
 
