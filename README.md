@@ -33,7 +33,7 @@ With `new winston.Logger`:
 
 ```js
 const winston = require('winston');
-const Sentry = require('winston-transport-sentry-node');
+const Sentry = require('winston-transport-sentry-node').default;
 
 const options = {
   sentry: {
@@ -53,7 +53,7 @@ Or with winston's `add` method:
 
 ```js
 const winston = require('winston');
-const Sentry = require('winston-transport-sentry-node');
+const Sentry = require('winston-transport-sentry-node').default;
 
 const logger = new winston.Logger();
 
