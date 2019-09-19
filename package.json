@@ -14,7 +14,7 @@
     "winston",
     "winston3"
   ],
-  "main": "dist/index.js",
+  "main": "dist/transport.js",
   "files": [
     "/dist",
     "/src"
