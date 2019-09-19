@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/node';
-import TransportStream from 'winston-transport';
+import TransportStream = require("winston-transport");
 
 interface Info {
   message: string;
