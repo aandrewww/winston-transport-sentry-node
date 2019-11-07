@@ -110,7 +110,7 @@ const sentryFormat = format(info => {
 });
 
 new SentryTransport({
-  format: sentryFormat
+  format: sentryFormat()
   // ...
 });
 ```
