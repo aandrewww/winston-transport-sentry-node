@@ -76,6 +76,12 @@ export default class SentryTransport extends TransportStream {
     return callback();
   }
 
+  end(...args: any[]) {
+    Sentry.flush().then(() => {
+      super.end(...args)
+    })
+  }
+
   public get sentry() {
     return Sentry;
   }
