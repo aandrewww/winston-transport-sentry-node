@@ -1,15 +1,19 @@
 import * as Sentry from '@sentry/node';
 import TransportStream = require("winston-transport");
 
-interface Info {
-  message: string;
-  level: string;
-  tags?: {[key: string]: string };
-  [key: string]: any;
-}
-
 export interface SentryTransportOptions extends TransportStream.TransportStreamOptions {
   sentry?: Sentry.NodeOptions;
+}
+
+class ExtendedError extends Error {
+  constructor(info: any) {
+    super(info.message);
+
+    this.name = "Error";
+    if (info.stack) {
+      this.stack = info.stack;
+    }
+  }
 }
 
 export default class SentryTransport extends TransportStream {
@@ -31,7 +35,7 @@ export default class SentryTransport extends TransportStream {
     Sentry.init(this.withDefaults(opts && opts.sentry || {}));
   }
 
-  public log(info: Info, callback: () => void) {
+  public log(info: any, callback: () => void) {
     setImmediate(() => {
       this.emit('logged', info);
     });
@@ -66,7 +70,8 @@ export default class SentryTransport extends TransportStream {
 
     // Capturing Errors / Exceptions
     if (this.shouldLogException(sentryLevel)) {
-      Sentry.captureException(new Error(message));
+      const error = message instanceof Error ? message : new ExtendedError(info);
+      Sentry.captureException(error);
 
       return callback();
     }
