@@ -42,7 +42,7 @@ export default class SentryTransport extends TransportStream {
 
     if (this.silent) return callback();
 
-    const { message, level: winstonLevel, tags, ...meta } = info;
+    const { message, level: winstonLevel, tags, user, ...meta } = info;
 
     const sentryLevel = (this.levelsMap as any)[winstonLevel];
 
@@ -53,8 +53,9 @@ export default class SentryTransport extends TransportStream {
 
       scope.setExtras(meta);
 
-      // TODO: add user details
-      // scope.setUser({ id: '4711' }); // id, email, username, ip_address
+      if (user !== undefined && this.isObject(user)) {
+        scope.setUser(user);
+      }
 
       // TODO: add fingerprints
       // scope.setFingerprint(['{{ default }}', path]); // fingerprint should be an array
