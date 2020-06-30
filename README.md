@@ -89,7 +89,13 @@ If `info.tags` is an object, it will be sent as [Sentry Tags](https://docs.sentr
 logger.error("some error", { tags: { tag1: "yo", tag2: "123" } });
 ```
 
-Additional properties of `info` are sent as [Sentry Extra Context](https://docs.sentry.io/enriching-error-data/context/?platform=javascript#extra-context). 
+If `info.user` is an object, it will be sent as [Sentry User](https://docs.sentry.io/platforms/javascript/#capturing-the-user).
+
+```js
+logger.error("some error", { user: { username: "somebody", id: "123" } });
+```
+
+Additional properties of `info` are sent as [Sentry Extra Context](https://docs.sentry.io/enriching-error-data/context/?platform=javascript#extra-context).
 
 ```js
 logger.error("some error", { whatever: "is sent as extra" });
