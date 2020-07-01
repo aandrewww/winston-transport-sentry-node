@@ -88,13 +88,13 @@ export default class SentryTransport extends TransportStream {
 
   private withDefaults(options: Sentry.NodeOptions) {
     return {
+      ...options,
       dsn: options && options.dsn || process.env.SENTRY_DSN || '',
       serverName: options && options.serverName || 'winston-transport-sentry-node',
       environment: options && options.environment || process.env.SENTRY_ENVIRONMENT || process.env.NODE_ENV || 'production',
       debug: options && options.debug || !!process.env.SENTRY_DEBUG || false,
       sampleRate: options && options.sampleRate || 1.0,
-      maxBreadcrumbs: options && options.maxBreadcrumbs || 100,
-      ...options
+      maxBreadcrumbs: options && options.maxBreadcrumbs || 100
     };
   }
 
