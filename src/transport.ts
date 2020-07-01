@@ -9,7 +9,7 @@ class ExtendedError extends Error {
   constructor(info: any) {
     super(info.message);
 
-    this.name = "Error";
+    this.name = info.name || "Error";
     if (info.stack) {
       this.stack = info.stack;
     }
