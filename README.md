@@ -29,7 +29,7 @@ npm install --save winston winston-transport-sentry-node
 
 You can configure `winston-transport-sentry-node` in two different ways.
 
-With `new winston.Logger`:
+With `winston.createLogger`:
 
 ```js
 const winston = require('winston');
@@ -42,7 +42,7 @@ const options = {
   level: 'info'
 };
 
-const logger = new winston.Logger({
+const logger = winston.createLogger({
   transports: [
     new Sentry(options)
   ]
@@ -55,7 +55,7 @@ Or with winston's `add` method:
 const winston = require('winston');
 const Sentry = require('winston-transport-sentry-node').default;
 
-const logger = new winston.Logger();
+const logger = winston.createLogger();
 
 logger.add(new Sentry(options));
 ```
