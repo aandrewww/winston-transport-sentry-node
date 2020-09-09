@@ -70,6 +70,7 @@ See [Options](#options-options) below for custom configuration.
 * `silent` (Boolean) - suppress logging (defaults to `false`)
 * `level` (String) - transport's level of messages to log (defaults to `info`)
 * `format` (Object) - custom log format (see [Winston Formats](https://github.com/winstonjs/winston#formats))
+* `levelsMap` (Object) - optional custom mapping between Winston's log levels and Sentry's log levels ([default](#log-level-mapping))
 
 ### Sentry common options
 
@@ -135,6 +136,9 @@ Winston logging levels are mapped by default to Sentry's acceptable levels.
   error: 'error'
 }
 ```
+
+See available [Sentry's levels](https://getsentry.github.io/sentry-javascript/enums/types.severity-1.html).
+Matching is done with [`Sentry.Severity.fromString()`](https://getsentry.github.io/sentry-javascript/enums/types.severity-1.html#fromstring) method and will defaults to [`log`](https://getsentry.github.io/sentry-javascript/enums/types.severity-1.html#log)
 
 ## License
 
