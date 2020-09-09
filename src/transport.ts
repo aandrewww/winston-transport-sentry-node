@@ -1,8 +1,22 @@
 import * as Sentry from '@sentry/node';
 import TransportStream = require("winston-transport");
 
+const DEFAULT_LEVELS_MAP: SeverityOptions = {
+  silly: Sentry.Severity.Debug,
+  verbose: Sentry.Severity.Debug,
+  info: Sentry.Severity.Info,
+  debug: Sentry.Severity.Debug,
+  warn: Sentry.Severity.Warning,
+  error: Sentry.Severity.Error,
+};
+
 export interface SentryTransportOptions extends TransportStream.TransportStreamOptions {
   sentry?: Sentry.NodeOptions;
+  levelsMap?: SeverityOptions;
+}
+
+interface SeverityOptions {
+  [key: string]: Sentry.Severity;
 }
 
 class ExtendedError extends Error {
@@ -19,18 +33,12 @@ class ExtendedError extends Error {
 export default class SentryTransport extends TransportStream {
   public silent = false;
 
-  private levelsMap = {
-    silly: Sentry.Severity.Debug,
-    verbose: Sentry.Severity.Debug,
-    info: Sentry.Severity.Info,
-    debug: Sentry.Severity.Debug,
-    warn: Sentry.Severity.Warning,
-    error: Sentry.Severity.Error
-  };
+  private levelsMap = {};
 
   public constructor(opts?: SentryTransportOptions) {
     super(opts);
 
+    this.levelsMap = this.setLevelsMap(opts && opts.levelsMap);
     this.silent = opts && opts.silent || false;
     Sentry.init(this.withDefaults(opts && opts.sentry || {}));
   }
@@ -91,6 +99,29 @@ export default class SentryTransport extends TransportStream {
   public get sentry() {
     return Sentry;
   }
+
+  private setLevelsMap = (options?: SeverityOptions): SeverityOptions => {
+    if (!options) {
+      return DEFAULT_LEVELS_MAP;
+    }
+
+    const customLevelsMap = Object.keys(options).reduce(
+      (acc: { [key: string]: any }, winstonSeverity: string) => {
+        const sentrySeverity: Sentry.Severity = Sentry.Severity.fromString(
+          options[winstonSeverity]
+        );
+        acc[winstonSeverity] = sentrySeverity;
+
+        return acc;
+      },
+      {}
+    );
+
+    return {
+      ...DEFAULT_LEVELS_MAP,
+      ...customLevelsMap,
+    };
+  };
 
   private withDefaults(options: Sentry.NodeOptions) {
     return {
