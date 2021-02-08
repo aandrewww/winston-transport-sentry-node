@@ -40,7 +40,7 @@ export default class SentryTransport extends TransportStream {
 
     this.levelsMap = this.setLevelsMap(opts && opts.levelsMap);
     this.silent = opts && opts.silent || false;
-    Sentry.init(this.withDefaults(opts && opts.sentry || {}));
+    Sentry.init(SentryTransport.withDefaults(opts && opts.sentry || {}));
   }
 
   public log(info: any, callback: () => void) {
@@ -55,13 +55,13 @@ export default class SentryTransport extends TransportStream {
     const sentryLevel = (this.levelsMap as any)[winstonLevel];
 
     Sentry.configureScope(scope => {
-      if (tags !== undefined && this.isObject(tags)) {
+      if (tags !== undefined && SentryTransport.isObject(tags)) {
         scope.setTags(tags);
       }
 
       scope.setExtras(meta);
 
-      if (user !== undefined && this.isObject(user)) {
+      if (user !== undefined && SentryTransport.isObject(user)) {
         scope.setUser(user);
       }
 
@@ -78,7 +78,7 @@ export default class SentryTransport extends TransportStream {
     // });
 
     // Capturing Errors / Exceptions
-    if (this.shouldLogException(sentryLevel)) {
+    if (SentryTransport.shouldLogException(sentryLevel)) {
       const error = message instanceof Error ? message : new ExtendedError(info);
       Sentry.captureException(error);
 
@@ -92,8 +92,8 @@ export default class SentryTransport extends TransportStream {
 
   end(...args: any[]) {
     Sentry.flush().then(() => {
-      super.end(...args)
-    })
+      super.end(...args);
+    });
   }
 
   public get sentry() {
@@ -107,11 +107,7 @@ export default class SentryTransport extends TransportStream {
 
     const customLevelsMap = Object.keys(options).reduce(
       (acc: { [key: string]: any }, winstonSeverity: string) => {
-        const sentrySeverity: Sentry.Severity = Sentry.Severity.fromString(
-          options[winstonSeverity]
-        );
-        acc[winstonSeverity] = sentrySeverity;
-
+        acc[winstonSeverity] = Sentry.Severity.fromString(options[winstonSeverity]);
         return acc;
       },
       {}
@@ -123,7 +119,7 @@ export default class SentryTransport extends TransportStream {
     };
   };
 
-  private withDefaults(options: Sentry.NodeOptions) {
+  private static withDefaults(options: Sentry.NodeOptions) {
     return {
       ...options,
       dsn: options && options.dsn || process.env.SENTRY_DSN || '',
@@ -139,12 +135,12 @@ export default class SentryTransport extends TransportStream {
   //   return msg && msg.message ? msg.message : msg;
   // }
 
-  private isObject (obj: any) {
+  private static isObject (obj: any) {
     const type = typeof obj;
     return type === 'function' || type === 'object' && !!obj;
   }
 
-  private shouldLogException(level: Sentry.Severity) {
+  private static shouldLogException(level: Sentry.Severity) {
     return level === Sentry.Severity.Fatal || level === Sentry.Severity.Error;
   }
 };
