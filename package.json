@@ -1,7 +1,7 @@
 {
   "name": "winston-transport-sentry-node",
   "description": "@sentry/node transport for the winston v3 logger",
-  "version": "0.7.0",
+  "version": "1.0.0",
   "author": "Andrew Avdeev <andrewww.avdeev@gmail.com>",
   "keywords": [
     "logger",
@@ -35,9 +35,9 @@
     "node": ">= 6.4.0"
   },
   "dependencies": {
-    "@sentry/node": "^5.17.0",
-    "winston": "^3.2.1",
-    "winston-transport": "^4.3.0"
+    "@sentry/node": "^6.1.0",
+    "winston": "^3.3.3",
+    "winston-transport": "^4.4.0"
   },
   "devDependencies": {
     "@types/chai": "^4.2.4",
