@@ -33,4 +33,28 @@ describe("SentryTransport", () => {
     });
     logger.info("...");
   });
+
+  it("should use the level derived from the symbol", (done) => {
+    const transport = new SentryTransport({
+      sentry: {
+        dsn: "https://something@localhost:443/123",
+        beforeSend(evt) {
+          expect(evt.level).to.equal("warning");
+          done();
+          return evt;
+        },
+      },
+      // Formatter which may change the level, like a `colorize`.
+      format: Winston.format((info) => {
+        info.level = "foo";
+        return info;
+      })(),
+      level: "info",
+    });
+
+    const logger = Winston.createLogger({
+      transports: [transport],
+    });
+    logger.warn("...");
+  })
 });
