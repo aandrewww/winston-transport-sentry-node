@@ -1,5 +1,6 @@
 import * as Sentry from '@sentry/node';
 import TransportStream = require("winston-transport");
+import { LEVEL } from 'triple-beam';
 
 const DEFAULT_LEVELS_MAP: SeverityOptions = {
   silly: Sentry.Severity.Debug,
@@ -50,7 +51,8 @@ export default class SentryTransport extends TransportStream {
 
     if (this.silent) return callback();
 
-    const { message, level: winstonLevel, tags, user, ...meta } = info;
+    const { message, level, tags, user, ...meta } = info;
+    const winstonLevel = info[LEVEL];
 
     const sentryLevel = (this.levelsMap as any)[winstonLevel];
 
