@@ -57,6 +57,8 @@ export default class SentryTransport extends TransportStream {
     const sentryLevel = (this.levelsMap as any)[winstonLevel];
 
     Sentry.configureScope(scope => {
+      scope.clear();
+
       if (tags !== undefined && SentryTransport.isObject(tags)) {
         scope.setTags(tags);
       }
