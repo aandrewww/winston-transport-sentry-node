@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/aandrewww/winston-transport-sentry-node#readme",
   "engines": {
-    "node": ">= 6.4.0"
+    "node": ">= 8.10.0"
   },
   "dependencies": {
     "@sentry/node": "^6.1.0",
@@ -48,7 +48,7 @@
     "@typescript-eslint/eslint-plugin": "^2.3.0",
     "@typescript-eslint/parser": "^2.3.0",
     "chai": "^4.2.0",
-    "eslint": "^6.4.0",
+    "eslint": "^6.8.0",
     "mocha": "^6.2.3",
     "typescript": "^3.6.3"
   }

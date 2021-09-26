@@ -56,5 +56,5 @@ describe("SentryTransport", () => {
       transports: [transport],
     });
     logger.warn("...");
-  })
+  });
 });
