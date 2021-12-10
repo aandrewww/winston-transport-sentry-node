@@ -11,9 +11,10 @@ yarn-error.log
 
 # VSCode
 .vscode
+.history
 
 # Specific
-dist
+# dist
 
 # Compile tests
 test/*.js
