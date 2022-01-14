@@ -100,6 +100,7 @@ export default class SentryTransport extends TransportStream {
     Sentry.flush().then(() => {
       super.end(...args);
     });
+    return this;
   }
 
   public get sentry() {
