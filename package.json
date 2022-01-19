@@ -1,7 +1,7 @@
 {
   "name": "winston-transport-sentry-node",
   "description": "@sentry/node transport for the winston v3 logger",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "author": "Andrew Avdeev <andrewww.avdeev@gmail.com>",
   "keywords": [
     "logger",
