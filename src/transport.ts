@@ -26,7 +26,7 @@ class ExtendedError extends Error {
     super(info.message);
 
     this.name = info.name || "Error";
-    if (info.stack) {
+    if (info.stack && typeof info.stack === "string") {
       this.stack = info.stack;
     }
   }
