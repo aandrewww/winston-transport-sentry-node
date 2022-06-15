@@ -2,13 +2,22 @@ import * as Sentry from "@sentry/node";
 import TransportStream = require("winston-transport");
 import { LEVEL } from "triple-beam";
 
+enum SentrySevertiy {
+  Debug = "debug",
+  Log = "log",
+  Info = "info",
+  Warning = "warning",
+  Error = "error",
+  Fatal = "fatal",
+}
+
 const DEFAULT_LEVELS_MAP: SeverityOptions = {
-  silly: Sentry.Severity.Debug,
-  verbose: Sentry.Severity.Debug,
-  info: Sentry.Severity.Info,
-  debug: Sentry.Severity.Debug,
-  warn: Sentry.Severity.Warning,
-  error: Sentry.Severity.Error,
+  silly: SentrySevertiy.Debug,
+  verbose: SentrySevertiy.Debug,
+  info: SentrySevertiy.Info,
+  debug: SentrySevertiy.Debug,
+  warn: SentrySevertiy.Warning,
+  error: SentrySevertiy.Error,
 };
 
 export interface SentryTransportOptions
@@ -18,7 +27,7 @@ export interface SentryTransportOptions
 }
 
 interface SeverityOptions {
-  [key: string]: Sentry.Severity;
+  [key: string]: Sentry.SeverityLevel;
 }
 
 class ExtendedError extends Error {
@@ -35,7 +44,7 @@ class ExtendedError extends Error {
 export default class SentryTransport extends TransportStream {
   public silent = false;
 
-  private levelsMap = {};
+  private levelsMap: SeverityOptions = {};
 
   public constructor(opts?: SentryTransportOptions) {
     super(opts);
@@ -55,7 +64,7 @@ export default class SentryTransport extends TransportStream {
     const { message, tags, user, ...meta } = info;
     const winstonLevel = info[LEVEL];
 
-    const sentryLevel = (this.levelsMap as any)[winstonLevel];
+    const sentryLevel = this.levelsMap[winstonLevel];
 
     Sentry.configureScope((scope) => {
       scope.clear();
@@ -112,11 +121,9 @@ export default class SentryTransport extends TransportStream {
       return DEFAULT_LEVELS_MAP;
     }
 
-    const customLevelsMap = Object.keys(options).reduce(
+    const customLevelsMap = Object.keys(options).reduce<SeverityOptions>(
       (acc: { [key: string]: any }, winstonSeverity: string) => {
-        acc[winstonSeverity] = Sentry.Severity.fromString(
-          options[winstonSeverity]
-        );
+        acc[winstonSeverity] = options[winstonSeverity];
         return acc;
       },
       {}
@@ -154,7 +161,7 @@ export default class SentryTransport extends TransportStream {
     return type === "function" || (type === "object" && !!obj);
   }
 
-  private static shouldLogException(level: Sentry.Severity) {
-    return level === Sentry.Severity.Fatal || level === Sentry.Severity.Error;
+  private static shouldLogException(level: Sentry.SeverityLevel) {
+    return level === SentrySevertiy.Fatal || level === SentrySevertiy.Error;
   }
 }
