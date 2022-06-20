@@ -1,7 +1,7 @@
 {
   "name": "winston-transport-sentry-node",
   "description": "@sentry/node transport for the winston v3 logger",
-  "version": "1.0.2",
+  "version": "2.3.0",
   "author": "Andrew Avdeev <andrewww.avdeev@gmail.com>",
   "keywords": [
     "logger",
@@ -32,24 +32,25 @@
   },
   "homepage": "https://github.com/aandrewww/winston-transport-sentry-node#readme",
   "engines": {
-    "node": ">= 6.4.0"
+    "node": ">= 8.10.0"
   },
   "dependencies": {
-    "@sentry/node": "^6.1.0",
+    "@sentry/node": "^6.13.2",
     "triple-beam": "^1.3.0",
+    "tslib": "^2.3.1",
     "winston": "^3.3.3",
     "winston-transport": "^4.4.0"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.4",
-    "@types/mocha": "^5.2.7",
-    "@types/node": "^12.7.5",
+    "@types/chai": "^4.2.22",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.10.1",
     "@types/triple-beam": "^1.3.2",
-    "@typescript-eslint/eslint-plugin": "^2.3.0",
-    "@typescript-eslint/parser": "^2.3.0",
-    "chai": "^4.2.0",
-    "eslint": "^6.4.0",
-    "mocha": "^6.2.3",
-    "typescript": "^3.6.3"
+    "@typescript-eslint/eslint-plugin": "^4.31.2",
+    "@typescript-eslint/parser": "^4.31.2",
+    "chai": "^4.3.4",
+    "eslint": "^7.32.0",
+    "mocha": "^9.1.2",
+    "typescript": "^4.4.3"
   }
 }
