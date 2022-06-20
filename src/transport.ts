@@ -15,7 +15,7 @@ export interface SentryTransportOptions
   extends TransportStream.TransportStreamOptions {
   sentry?: Sentry.NodeOptions;
   levelsMap?: SeverityOptions;
-  skipSentryInit?: Boolean;
+  skipSentryInit?: boolean;
 }
 
 interface SeverityOptions {
@@ -43,7 +43,10 @@ export default class SentryTransport extends TransportStream {
 
     this.levelsMap = this.setLevelsMap(opts && opts.levelsMap);
     this.silent = (opts && opts.silent) || false;
-    Sentry.init(SentryTransport.withDefaults((opts && opts.sentry) || {}));
+
+    if (!opts || !opts.skipSentryInit) {
+      Sentry.init(SentryTransport.withDefaults(opts && opts.sentry || {}));
+    }
   }
 
   public log(info: any, callback: () => void) {
