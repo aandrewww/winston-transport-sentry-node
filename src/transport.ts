@@ -2,7 +2,7 @@ import * as Sentry from "@sentry/node";
 import TransportStream = require("winston-transport");
 import { LEVEL } from "triple-beam";
 
-enum SentrySevertiy {
+enum SentrySeverity {
   Debug = "debug",
   Log = "log",
   Info = "info",
@@ -12,12 +12,12 @@ enum SentrySevertiy {
 }
 
 const DEFAULT_LEVELS_MAP: SeverityOptions = {
-  silly: SentrySevertiy.Debug,
-  verbose: SentrySevertiy.Debug,
-  info: SentrySevertiy.Info,
-  debug: SentrySevertiy.Debug,
-  warn: SentrySevertiy.Warning,
-  error: SentrySevertiy.Error,
+  silly: SentrySeverity.Debug,
+  verbose: SentrySeverity.Debug,
+  info: SentrySeverity.Info,
+  debug: SentrySeverity.Debug,
+  warn: SentrySeverity.Warning,
+  error: SentrySeverity.Error,
 };
 
 export interface SentryTransportOptions
@@ -166,6 +166,6 @@ export default class SentryTransport extends TransportStream {
   }
 
   private static shouldLogException(level: Sentry.SeverityLevel) {
-    return level === SentrySevertiy.Fatal || level === SentrySevertiy.Error;
+    return level === SentrySeverity.Fatal || level === SentrySeverity.Error;
   }
 }
