@@ -100,7 +100,7 @@ export default class SentryTransport extends TransportStream {
       const error =
         Object.values(info).find((value) => value instanceof Error) ??
         new ExtendedError(info);
-      Sentry.captureException(error, { tags });
+      Sentry.captureException(error, { tags, level: sentryLevel });
 
       return callback();
     }
