@@ -54,7 +54,7 @@ export default class SentryTransport extends TransportStream {
     this.silent = (opts && opts.silent) || false;
 
     if (!opts || !opts.skipSentryInit) {
-      Sentry.init(SentryTransport.withDefaults(opts && opts.sentry || {}));
+      Sentry.init(SentryTransport.withDefaults((opts && opts.sentry) || {}));
     }
   }
 
@@ -70,24 +70,23 @@ export default class SentryTransport extends TransportStream {
 
     const sentryLevel = this.levelsMap[winstonLevel];
 
-    Sentry.configureScope((scope) => {
-      scope.clear();
+    const scope = Sentry.getCurrentScope();
+    scope.clear();
 
-      if (tags !== undefined && SentryTransport.isObject(tags)) {
-        scope.setTags(tags);
-      }
+    if (tags !== undefined && SentryTransport.isObject(tags)) {
+      scope.setTags(tags);
+    }
 
-      scope.setExtras(meta);
+    scope.setExtras(meta);
 
-      if (user !== undefined && SentryTransport.isObject(user)) {
-        scope.setUser(user);
-      }
+    if (user !== undefined && SentryTransport.isObject(user)) {
+      scope.setUser(user);
+    }
 
-      // TODO: add fingerprints
-      // scope.setFingerprint(['{{ default }}', path]); // fingerprint should be an array
+    // TODO: add fingerprints
+    // scope.setFingerprint(['{{ default }}', path]); // fingerprint should be an array
 
-      // scope.clear();
-    });
+    // scope.clear();
 
     // TODO: add breadcrumbs
     // Sentry.addBreadcrumb({
