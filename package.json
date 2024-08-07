@@ -53,6 +53,6 @@
     "typescript": "^4.4.3"
   },
   "peerDependencies": {
-    "@sentry/node": "^7.1.1"
+    "@sentry/node": "^8.13.0"
   }
 }
