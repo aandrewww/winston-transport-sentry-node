@@ -19,3 +19,7 @@ dist
 test/*.js
 test/*.js.map
 test/*.d.ts
+/.idea/
+/src/transport.d.ts
+/src/transport.js
+/src/transport.js.map

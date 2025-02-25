@@ -1,6 +1,6 @@
 import * as Sentry from "@sentry/node";
-import TransportStream = require("winston-transport");
-import { LEVEL } from "triple-beam";
+import TransportStream from "winston-transport";
+import {LEVEL} from "triple-beam";
 
 enum SentrySeverity {
   Debug = "debug",
@@ -42,7 +42,7 @@ class ExtendedError extends Error {
   }
 }
 
-export default class SentryTransport extends TransportStream {
+export class SentryTransport extends TransportStream {
   public silent = false;
 
   private levelsMap: SeverityOptions = {};
@@ -65,7 +65,7 @@ export default class SentryTransport extends TransportStream {
 
     if (this.silent) return callback();
 
-    const { message, tags, user, ...meta } = info;
+    const {message, tags, user, ...meta} = info;
     const winstonLevel = info[LEVEL];
 
     const sentryLevel = this.levelsMap[winstonLevel];
@@ -99,7 +99,7 @@ export default class SentryTransport extends TransportStream {
       const error =
         Object.values(info).find((value) => value instanceof Error) ??
         new ExtendedError(info);
-      Sentry.captureException(error, { tags, level: sentryLevel });
+      Sentry.captureException(error, {tags, level: sentryLevel});
 
       return callback();
     }

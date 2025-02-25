@@ -1,16 +1,15 @@
-import SentryTransport from "../dist/transport";
-import Winston from "winston";
-import { expect } from "chai";
+import expect from 'expect';
+import {SentryTransport} from "../src/transport";
+import * as Winston from "winston";
 
 const sentryFormat = Winston.format((info) => {
-  const { ...extra } = info;
-  const result = {
+  const {...extra} = info;
+  return {
     ...extra,
     tags: {
       formatted: true,
     },
   };
-  return result;
 });
 
 describe("SentryTransport", () => {
@@ -19,8 +18,8 @@ describe("SentryTransport", () => {
       sentry: {
         dsn: "https://something@localhost:443/123",
         beforeSend(evt) {
-          expect(evt.tags).to.have.property("formatted");
-          expect((evt.tags || {}).formatted).to.equal(true);
+          expect(evt.tags).toHaveProperty("formatted");
+          expect((evt.tags || {}).formatted).toBe(true);
           done();
           return evt;
         },
@@ -39,7 +38,7 @@ describe("SentryTransport", () => {
       sentry: {
         dsn: "https://something@localhost:443/123",
         beforeSend(evt) {
-          expect(evt.level).to.equal("warning");
+          expect(evt.level).toBe("warning");
           done();
           return evt;
         },

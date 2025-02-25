@@ -1,11 +1,11 @@
 
 # winston-transport-sentry-node
-[![CircleCI](https://circleci.com/gh/aandrewww/winston-transport-sentry-node.svg?style=svg)](https://circleci.com/gh/aandrewww/winston-transport-sentry-node)
-[![node](https://img.shields.io/badge/node-6.4.0+-brightgreen.svg)][node-url]
+[![Github Actions](https://github.com/ahtinurme/winston-transport-sentry-node/actions/workflows/lint-test.yml/badge.svg)](https://github.com/ahtinurme/winston-transport-sentry-node/actions/workflows/lint-test.yml)
+[![node](https://img.shields.io/badge/node-16.4.0+-brightgreen.svg)][node-url]
 [![winston](https://img.shields.io/badge/winston-3.x+-brightgreen.svg)][winston-url]
 [![license](https://img.shields.io/github/license/aandrewww/winston-transport-sentry-node.svg)][license-url]
 
-[@Sentry/node](https://github.com/getsentry/sentry-javascript/tree/master/packages/node) transport for the [winston](https://github.com/winstonjs/winston) v3 logger.
+[@Sentry/node](https://github.com/getsentry/sentry-javascript/tree/master/packages/node) transport for the [winston](https://github.com/winstonjs/winston) v3 logger. Forked and updated to latest Sentry (v9).
 
 ## Index
 
